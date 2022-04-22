@@ -25,6 +25,8 @@ using std::endl;
 using std::ends;
 using std::vector;
 
+//CHOOSER BOOL
+bool sp = false;
 
 // GLUT CALLBACK functions
 void displayCB();
@@ -666,6 +668,11 @@ int main(int argc, char **argv)
 	// init global vars
 	initSharedMem();
 
+	printf("show basic examples or full plot? (e/p)");
+	char a;
+	std::cin >> a;
+	if (a == 'e') sp = false; else sp = true;
+
 	printf("prepping plot data\n");
 	fillfunc();
 	printf("building plot data array\n");
@@ -987,25 +994,29 @@ void displayCB()
 	glRotatef(cameraAngleX, 1, 0, 0);   // pitch
 	glRotatef(cameraAngleY, 0, 1, 0);   // heading
 
-	//draw1();        // with immediate mode, glBegin()-glEnd() block
-	//draw2();        // with glDrawArrays()
-	//draw3();        // with glDrawElements()
-	//draw5();        // with glDrawElements() with interleave vertex array
-	//draw4();        // with glDrawRangeElements()
+	if (!sp)
+	{
+		draw1();        // with immediate mode, glBegin()-glEnd() block
+		draw2();        // with glDrawArrays()
+		draw3();        // with glDrawElements()
+		draw5();        // with glDrawElements() with interleave vertex array
+		draw4();        // with glDrawRangeElements()
+	}
+	else drawplot();
 
-	drawplot();
 
-
-	// print 2D text
-	float pos[4] = { -4.0f,3.5f,0,1 };
-	float color[4] = { 1,1,1,1 };
-	drawString3D("Immediate", pos, color, font);
-	pos[0] = 0.5f;
-	drawString3D("glDrawArrays()", pos, color, font);
-	pos[0] = -5.0f; pos[1] = -4.0f;
-	drawString3D("glDrawElements()", pos, color, font);
-	pos[0] = 0.5f;
-	drawString3D("glDrawRangeElements()", pos, color, font);
+	if (!sp) {
+		// print 2D text
+		float pos[4] = { -4.0f,3.5f,0,1 };
+		float color[4] = { 1,1,1,1 };
+		drawString3D("Immediate", pos, color, font);
+		pos[0] = 0.5f;
+		drawString3D("glDrawArrays()", pos, color, font);
+		pos[0] = -5.0f; pos[1] = -4.0f;
+		drawString3D("glDrawElements()", pos, color, font);
+		pos[0] = 0.5f;
+		drawString3D("glDrawRangeElements()", pos, color, font);
+	}
 
 	showInfo();     // print max range of glDrawRangeElements
 
