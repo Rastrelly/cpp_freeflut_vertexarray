@@ -283,7 +283,7 @@ void makearrays()
 			}
 
 			k++;
-			if (j == h - 2) k++;
+			if (j == w - 2) k++;
 			printf("k=%d\n",k);
 			//if (k % (w - 1) == 0) cn++;
 			
