@@ -26,7 +26,7 @@ using std::ends;
 using std::vector;
 
 //CHOOSER BOOL
-bool sp = false;
+bool sp = false; 
 
 // GLUT CALLBACK functions
 void displayCB();
